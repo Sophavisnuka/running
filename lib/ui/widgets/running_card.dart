@@ -9,7 +9,7 @@ class RunningCard extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.blue,   // border color
+          color: Color.fromARGB(255, 243, 93, 33),   // border color
           width: 1.5,           // border thickness
         ),
         borderRadius: BorderRadius.circular(12), // rounded corners

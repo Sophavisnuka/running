@@ -6,13 +6,19 @@ import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(
     DevicePreview(
       enabled: true,
-      builder: (context) =>MyApp()
-    )
+      builder: (context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        useInheritedMediaQuery: true,
+        home: const MyApp(),
+      ),
+    ),
   );
 }
