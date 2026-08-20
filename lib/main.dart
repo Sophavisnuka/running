@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:running_app/ui/my_app.dart';
+import 'package:running_app/presentation/my_app.dart';
 import 'firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 

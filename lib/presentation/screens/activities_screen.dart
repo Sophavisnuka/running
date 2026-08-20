@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:running_app/ui/widgets/running_card.dart';
+import 'package:running_app/presentation/screens/home_screen/widgets/running_card.dart';
 
 class ActivitiesScreen extends StatelessWidget {
   const ActivitiesScreen({super.key});

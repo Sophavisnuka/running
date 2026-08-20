@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:running_app/ui/screens/activities_screen.dart';
-import 'package:running_app/ui/screens/home_screen.dart';
-import 'package:running_app/ui/screens/map_screen.dart';
-import 'package:running_app/ui/screens/setting_screen.dart';
+import 'package:running_app/core/theme/app_theme.dart';
+import 'package:running_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:running_app/presentation/screens/running_screen/map_screen.dart';
+import 'package:running_app/presentation/screens/setting_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> screens = [
     HomeScreen(),
-    ActivitiesScreen(),
+    MapScreen(),
     SettingScreen(),
   ]; 
 
@@ -29,48 +29,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _toggleStartRun() {
-    setState(() {
-      startRun = !startRun;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.white,
-      floatingActionButton: selectedIndex == 0
-        ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (startRun)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: FloatingActionButton.extended(
-                    heroTag: 'startRun',
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const MapScreen()),
-                      );
-                    },
-                    backgroundColor: Color.fromARGB(255, 243, 93, 33),
-                    icon: const Icon(Icons.directions_run, color: Colors.white),
-                    label: const Text('Start Run', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-              FloatingActionButton(
-                heroTag: 'mainFab',
-                onPressed: _toggleStartRun,
-                backgroundColor: Color.fromARGB(255, 243, 93, 33),
-                child: Icon(
-                  startRun ? Icons.close : Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          )
-        : null,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -78,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         title: const Text(
           'Stride',
           style: TextStyle(
-            color: Color.fromARGB(255, 243, 93, 33),
+            color: AppTheme.primaryColor,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
@@ -101,18 +64,29 @@ class _MyAppState extends State<MyApp> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        selectedItemColor: const Color.fromARGB(255, 243, 93, 33),
+        selectedItemColor: AppTheme.primaryColor,
         currentIndex: selectedIndex,
         onTap: onNavTab,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_activity),
-            label: 'Activities',
+            icon: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: AppTheme.primaryColor,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 28,
+              ),
+            ),
+            label: 'Start',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

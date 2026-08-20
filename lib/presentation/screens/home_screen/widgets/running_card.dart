@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:running_app/core/theme/app_theme.dart';
 
 class RunningCard extends StatelessWidget {
   const RunningCard({super.key});
@@ -9,10 +10,10 @@ class RunningCard extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Color.fromARGB(255, 243, 93, 33),   // border color
-          width: 1.5,           // border thickness
+          color: AppTheme.primaryColor,
+          width: 1.5,
         ),
-        borderRadius: BorderRadius.circular(12), // rounded corners
+        borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
         leading: const Icon(Icons.directions_run),
