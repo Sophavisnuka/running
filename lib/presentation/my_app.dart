@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:running_app/core/theme/app_theme.dart';
 import 'package:running_app/presentation/screens/home_screen/home_screen.dart';
-import 'package:running_app/presentation/screens/running_screen/map_screen.dart';
+import 'package:running_app/presentation/screens/running_screen/running_screen.dart';
 import 'package:running_app/presentation/screens/setting_screen.dart';
+import 'package:running_app/presentation/view_model/location_vm.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -18,7 +20,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> screens = [
     HomeScreen(),
-    MapScreen(),
+    RunningScreen(),
     SettingScreen(),
   ]; 
 
@@ -36,10 +38,11 @@ class _MyAppState extends State<MyApp> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
         elevation: 0,
         leadingWidth: 60,
         title: const Text(
-          'Stride',
+          'Run With Me',
           style: TextStyle(
             color: AppTheme.primaryColor,
             fontWeight: FontWeight.bold,
@@ -47,6 +50,15 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.location_on_outlined),
+            color: AppTheme.primaryColor,
+            onPressed: () {
+              // This tap IS the user gesture the browser needs — safe to call directly.
+              context.read<LocationViewModel>().loadCurrentLocation();
+            },
+          ),
+          const SizedBox(width: 10),
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: CircleAvatar(
@@ -81,12 +93,12 @@ class _MyAppState extends State<MyApp> {
                 shape: BoxShape.circle,
               ),
               child: const Icon(
-                Icons.add,
+                Icons.directions_run,
                 color: Colors.white,
                 size: 28,
               ),
             ),
-            label: 'Start',
+            label: 'Run',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

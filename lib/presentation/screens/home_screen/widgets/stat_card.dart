@@ -2,48 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:running_app/core/theme/app_theme.dart';
 import 'package:running_app/data/repositories/running_repository.dart';
 import 'package:running_app/data/models/running.dart';
-import 'package:running_app/presentation/screens/home_screen/widgets/stat_tile.dart';
+import 'package:running_app/presentation/widgets/stat_tile.dart';
 
 /// Time period options for the stats card.
 enum StatsPeriod { week, month, allTime }
-
-/// Simple data model for the stats card.
-/// Swap this out for your real model (e.g. computed from a list of runs).
-// class RunStats {
-//   final double distanceKm;
-//   final Duration totalTime;
-//   final int runCount;
-
-//   const RunStats({
-//     required this.distanceKm,
-//     required this.totalTime,
-//     required this.runCount,
-//   });
-
-//   /// Average pace in minutes per km (e.g. 5.5 = 5:30/km).
-//   double get avgPaceMinPerKm {
-//     if (distanceKm == 0) return 0;
-//     return totalTime.inSeconds / 60 / distanceKm;
-//   }
-
-//   String get formattedTime {
-//     final hours = totalTime.inHours;
-//     final minutes = totalTime.inMinutes.remainder(60);
-//     if (hours > 0) {
-//       return '${hours}h ${minutes}m';
-//     }
-//     return '${minutes}m';
-//   }
-
-//   String get formattedPace {
-//     if (distanceKm == 0) return '--:--';
-//     final pace = avgPaceMinPerKm;
-//     final min = pace.floor();
-//     final sec = ((pace - min) * 60).round();
-//     return '$min:${sec.toString().padLeft(2, '0')} /km';
-//   }
-// }
-
 class StatsCard extends StatefulWidget {
   /// Provide stats for each period. Pass whatever you have; missing
   /// periods will just show zeros.
