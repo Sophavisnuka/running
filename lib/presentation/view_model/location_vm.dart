@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:running_app/data/models/place_result.dart';
 import 'package:running_app/data/repositories/location_repository.dart';
+import 'package:latlong2/latlong.dart';
 
 enum LocationLoadStatus { loading, success, error }
 
@@ -12,7 +14,8 @@ class LocationViewModel extends ChangeNotifier {
   LocationLoadStatus _status = LocationLoadStatus.loading;
   Position? _currentPosition;
   String? _errorMessage;
-
+  LatLng? searchLocation;
+  String? searchQuery;
   LocationLoadStatus get status => _status;
   Position? get currentPosition => _currentPosition;
   String? get errorMessage => _errorMessage;
@@ -36,4 +39,28 @@ class LocationViewModel extends ChangeNotifier {
   /// Call this if a screen wants to force a fresh lookup
   /// (e.g. a retry button after permission was denied).
   Future<void> refresh() => loadCurrentLocation();
+
+  Future<List<PlaceResult>> searchPlaces(String query) async {
+    try {
+      return await _locationRepository.searchPlaces(query);
+    } catch (e) {
+      _errorMessage = e.toString();
+      _status = LocationLoadStatus.error;
+      notifyListeners();
+      return [];
+    }
+  }
+
+  void placeSelected(PlaceResult place) {
+    final target = LatLng(place.latitude, place.longitude);
+    searchLocation = target;
+    searchQuery = place.name;
+    notifyListeners();
+  }
+
+  void clearSelectedPlace() {
+    searchLocation = null;
+    searchQuery = null;
+    notifyListeners();
+  }
 }

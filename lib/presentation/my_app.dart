@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> screens = [
     HomeScreen(),
     RunningScreen(),
-    SettingScreen(),
+    SettingsScreen(),
   ]; 
 
   void onNavTab(int index) {
